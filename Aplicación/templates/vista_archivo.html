@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style>
+
+body{
+    position: relative;
+}
+
+#all-forms{
+    padding: 20px;
+    width: 30%;
+    height: 100vh;
+    position: fixed;
+    border-right: 2px gray solid;
+    display: inline-block;
+}
+#all-forms>div{
+    margin-bottom: 20px;
+}
+.radio{
+    display: inline-block;
+    margin-right: 6px;
+}
+.radio input, .radio label{
+    margin-right: 2px;
+    cursor: pointer;
+}
+
+.input-group{
+    margin: 20px 0px;
+}
+select{
+    height: 38px !important;
+    width: 20px !important;
+}
+
+[type="submit"]{
+    margin-top: 40px;
+    width: 100%;
+}
+#data{
+    top:0px;
+    width: 70%;
+    height: 100vh;
+    right: 0px;
+    position: fixed;
+    display: inline-flex;
+    padding: 5%;
+    justify-content: center;
+    align-content: center;
+}
+
+th{
+    white-space: nowrap;
+}
+tbody{
+    overflow-y: scroll;
+
+}
+a.btn {
+    color: white !important;
+    cursor: pointer;
+}
+
+.tabcontent {
+overflow-x: auto;
+margin-right: 0px;
+margin-top:60px;
+padding: 6px 12px;
+border: 1px solid #ccc;
+text-align: center;
+-webkit-animation: fadeEffect 1s;
+animation: fadeEffect 1s;
+}
+
+
+</style>
+</head>
+<body style="background-color:#DAFFF9;">
+    <div id="all-forms">
+        <div id="back" > 
+            <button class="button button1" style="border-radius: 12px;background-color:#F9DBE5; border: 1px solid black;"> 
+                {% if not mode %}
+                <a  href="/" style="padding-left: 5px;padding-right: 5px;color:black;">Atrás</a>
+                {% endif %}
+            </button>
+        </div>
+        <div id="data-params">
+            <h6>
+                Seleccione el tipo de gráfico:
+            </h6>
+            <form>
+            <input type="text" placeholder="Selecione una opción" class="form-control" id="list_us" list="fun" >
+            <datalist id="fun">
+                <option value="Grafico de barras">FFT (bandas de frecuencia)</option>
+                <option value="Diagrama de sectores"> FFT (bandas de frecuencia) </option>
+                <option value="Visualizacion 2D">Registro EEG</option>
+                <option value="Cartografia cerebral"> Mapa topográfico</option>
+            </datalist>
+            
+            </form>
+        </div>
+        <hr>
+        <form id="Grafico de barras-form" style="display: none; overflow-y: auto; height: 450px;">
+            <h6> Información y parámetros requeridos </h6>
+            <p> Permite la visualización de los canales seleccionados, en un gráfico de barras, en fft.
+                El gráfico muestra los datos seleccionados en las distintas bandas de frecuencia: Delta, Theta, Alpha, Beta y Gamma.
+                Se requiere elegir la frecuencia y escribir uno o dos canales separados por una coma (p.eje. "0,1"), deben coincidir con el fichero .txt de la carpeta Datos.</p>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">Frecuencia</div>
+                </div>
+                <select placeholder="Selecciona la frecuencia" class="form-control" id="Barras_Frecuencia_ID" name="Barras_Frecuencia_ID">
+                    <option value=20>20Hzs</option>
+                    <option value=50>50Hzs</option>
+                    <option value=100>100Hzs</option>
+                    <option value=250>250Hzs</option>
+                    <option value=500>500Hzs</option>
+                </select>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">&nbsp Canales &nbsp&nbsp</div>
+                </div>
+                <input type="text" placeholder="Escribe los canales..." class="form-control" id="Barras_Canales_ID" name="Barras_Canales_ID">
+            </div>
+            <hr>
+            <h6>
+                Visualización datos EEG
+            </h6>
+            <p> Posibilidad de visualizar de forma tabulada los datos del EEG que se representan en el gráfico.</p>
+            <div class="input-group mb-2">
+
+            <label style="vertical-align: middle;margin-right: 10px;"><input type="radio" name="visualizar" value="down"/> Visualización </input></label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 2px;">Mostrar</button>
+        </form>
+
+        <form id="Diagrama de sectores-form" style="display: none; overflow-y: auto; height: 450px;">
+            <h6> Información y parámetros requeridos </h6>
+            <p> Permite la visualización de los canales seleccionados, en un diagrama de sectores, en fft.
+                 El gráfico muestra los datos seleccionados en las distintas bandas de frecuencia: Delta, Theta, Alpha, Beta y Gamma.
+                Se requiere elegir la frecuencia y escribir uno o dos canales separados por una coma (p.eje. "0,1"), deben coincidir con el fichero .txt de la carpeta Datos.</p>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">Frecuencia</div>
+                </div>
+                <select placeholder="Selecciona la frecuencia" class="form-control" id="Sectores_Frecuencia_ID" name="Sectores_Frecuencia_ID">
+                    <option value=20>20Hzs</option>
+                    <option value=50>50Hzs</option>
+                    <option value=100>100Hzs</option>
+                    <option value=250>250Hzs</option>
+                    <option value=500>500Hzs</option>
+                </select>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">&nbsp Canales &nbsp&nbsp</div>
+                </div>
+                <input type="text" placeholder="Escribe los canales..." class="form-control" id="Sectores_Canales_ID" name="Sectores_Canales_ID">
+            </div>
+            <hr>
+            <h6>
+                Visualización datos EEG:
+            </h6>
+            <p> Posibilidad de visualizar de forma tabulada los datos del EEG que se representan en el gráfico.</p>
+            <div class="input-group mb-2">
+
+            <label style="vertical-align: middle;margin-right: 10px;"><input type="radio" name="visualizar" value="down"/> Visualización </input></label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 2px;">Mostrar</button>
+        </form>
+
+
+        <form id="Cartografia cerebral-form" style="display: none; overflow-y: auto; height: 450px;">
+            <h6> Información y parámetros requeridos </h6>
+            <p> Permite la visualización, sobre un mapa topográfico, de los datos recogidos de los 32 canales.
+                Se requiere elegir la frecuencia, los 32 canales seran cargados automáticamente de la carpeta Datos (deben existir todos los ficheros)</p>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">Frecuencia</div>
+                </div>
+                <select placeholder="Selecciona la frecuencia" class="form-control" id="Cartografia_Frecuencia_ID" name="Cartografia_Frecuencia_ID">
+                    <option value=20>20Hzs</option>
+                    <option value=50>50Hzs</option>
+                    <option value=100>100Hzs</option>
+                    <option value=250>250Hzs</option>
+                    <option value=500>500Hzs</option>
+                </select>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">&nbsp Canales &nbsp&nbsp</div>
+                </div>
+                <input type="text" placeholder="Todos los canales están seleccionados" class="form-control" id="Cartografia_Canales_ID" name="Cartografia_Canales_ID" disabled>
+            </div>
+            <hr>
+            <h6>
+                Visualización datos EEG
+            </h6>
+            <p> Posibilidad de visualizar de forma tabulada los datos del EEG que se representan en el gráfico.</p>
+            <div class="input-group mb-2">
+
+            <label style="vertical-align: middle;margin-right: 10px;"><input type="radio" name="visualizar" value="down"/> Visualización </input></label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 2px;">Mostrar</button>
+        </form>
+
+        <form id="Visualizacion 2D-form" style="display: none; overflow-y: auto; height: 450px;">
+            <h6> Información y parámetros requeridos </h6>
+            <p> Permite la visualización 2D de los canales seleccionados.
+                El gráfico muestra los datos seleccionados en el eje 'y' frente al tiempo en el eje 'x'.
+                Se requiere elegir la frecuencia y escribir los canales deseados separados por una coma (p.eje. "0,15,23"), deben coincidir con el fichero .txt de la carpeta Datos.</p>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">Frecuencia</div>
+                </div>
+                <select placeholder="Selecciona la frecuencia" class="form-control" id="Vi2d_Frecuencia_ID" name="Vi2d_Frecuencia_ID">
+                    <option value=20>20Hzs</option>
+                    <option value=50>50Hzs</option>
+                    <option value=100>100Hzs</option>
+                    <option value=250>250Hzs</option>
+                    <option value=500>500Hzs</option>
+                </select>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">&nbsp Canales &nbsp&nbsp</div>
+                </div>
+                <input type="text" placeholder="Escribe los canales..." class="form-control" id="Vi2d_Canales_ID" name="Vi2d_Canales_ID">
+            </div>
+            <hr>
+            <h6>
+                Visualización datos EEG
+            </h6>
+            <p> Posibilidad de visualizar de forma tabulada los datos del EEG que se representan en el gráfico.</p>
+            <div class="input-group mb-2">
+
+            <label style="vertical-align: middle;margin-right: 10px;"><input type="radio" name="visualizar" value="down"/> Visualización </input></label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 2px;">Mostrar</button>
+        </form>
+
+    </div>
+
+
+    <div id="data">
+        {% if not data%}
+        <div id="waiting" style="text-align: center;">
+        <br>
+        <br>
+        <br>
+        <hr>
+        <h1 >Seleccione una opción</h1>
+        <hr>
+        <img src= "{{url_for('static', filename='waiting2.gif')}}" alt="logo" />
+        
+        </div>
+        {% endif %}
+        
+        {% if data %}
+        <div id="tabcontent" class="tabcontent" style="width: 90%; height: 95%;">
+        <table class="table table-striped" >
+            <thead class="thead-dark">
+                    {% if data_keys %}
+                    <tr>
+                        {% for data_key in data_keys %}
+                                <th scope="col">{{ data_key }}</th>
+                        {% endfor %}
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if data %}
+                        {% for data_result in  data%}
+                            <tr>
+                                {% for ind in data_result %}
+                                        <td scope="row">{{ ind }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        </div>
+        {% endif %}
+    </div>
+    <script>
+        
+        let selected_function = "";
+
+
+        const selectElement = document.querySelector('#list_us');
+        selectElement.addEventListener('change', function(){
+            if(selected_function != ""){
+                hideElement(selected_function + "-form");
+            }
+            showElement(this.value + "-form");
+            selected_function = this.value ;
+            hideElement("data")
+        });
+
+
+        
+        const forms = document.querySelectorAll('form');
+
+        forms.forEach(el => el.addEventListener("submit", function(e){
+            submitButton = el.querySelector('[type="submit"]')
+            submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...'
+            removeButtons()
+        }));
+
+
+        function hideElement(elementId){
+            document.getElementById(elementId).style.display = "none";
+        }
+        function showElement(elementId){
+            document.getElementById(elementId).style.display = "block";
+        }
+
+    </script>
+</body>
+</html>

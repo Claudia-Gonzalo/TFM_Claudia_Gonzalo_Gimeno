@@ -1,0 +1,82 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Selection</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style> 
+        .vertical { 
+            border-left: 1px solid black; 
+            height: 270px; 
+            position:absolute; 
+            left: 50%; 
+        } 
+
+        .one {
+        width: 30%;
+        height: 300px;
+        margin-left: 10%;
+        float: left;
+        }
+
+        .two {
+        margin-left: 60%;
+        margin-right: 10%;
+        height: 300px;
+        }
+    </style> 
+</head>
+<body style="background-color:#DAFFF9">
+    <br>
+    <br>
+    <hr>
+    <hr>
+    <h1 align="center">Bitmed eXea Ultra</h1>
+    <hr>
+    <hr>
+    <br>
+    <form  action="/Seleccion"  method="POST">
+        <div class="one" >    
+            <fieldset>
+            <legend style="text-align:center;display: block;padding-left: 15px;padding-right: 10px;border: 1px solid black;background-color:#FFC2D7;"> NUEVO REGISTRO</legend>
+            <p style="text-align: justify"> Permite hacer un nuevo registro EGG, para ello debe estar correctamente conectado y cargado.  
+                Posibilita guardar un registro en un fichero o visualizarlo en un gráfico y posteriormente si se desea, guardarlo. Los gráficos proporcionados son: Grafico de barras (bandas de frecuencia), Diagrama de sectores (bandas de frecuencia) y Visualización 2D.
+                Se ha de indicar las frecuencias y canales deseados. Cualquier problema o duda, consultar la documentación.
+                </p>
+                  <label style="vertical-align: middle;margin-right: 10px;"><input type="radio" name="select_mode" value="Serie" checked/> Nuevo registro </input></label>
+            </fieldset>
+        </div>
+
+        
+
+        <div class="vertical"></div>
+
+        <div class="two" >
+        <fieldset>
+        <legend style="text-align:center;display: block;padding-left: 15px;padding-right: 10px;border: 1px solid black;background-color:#FFC2D7;">REGISTRO DE ARCHIVO</legend>
+                <p style="text-align: justify">Se parte de un fichero de datos de registros anteriores, el cual ha de estar correctamente ubicado en la carpeta Datos. 
+                    Permite visualizar el registro en un gráfico y posteriormente mostrar dichos datos en pantalla si se desea. Los gráficos proporcionados son: Grafico de barras (bandas de frecuencia), Diagrama de sectores (bandas de frecuencia) , Visualización 2D y Cartografía cerebral.
+                    Se ha de indicar las frecuencias y canales deseados. El fichero ha de contener un minimo de datos. Cualquier problema o duda, consultar la documentación.
+                    </p>
+                <label style="vertical-align: middle;margin-right: 10px;"><input type="radio" name="select_mode" value="Archivo"/> Registro de archivo </input></label>
+            </fieldset>
+        </div>
+        <hr style="width:30%;text-align:left; position: fixed;left:10%; top: 530px;">
+        <hr style="width:30%;text-align:right; position: fixed; right:10%; top: 530px;">
+        <div style="width: 20px;position: fixed;top:460px;left:46%">
+        <br>
+        <br>
+        <br>
+        <input  type="submit" value="Continuar..." style="border-radius: 12px; border: 1px solid black; background-color:#F9DBE5;color:black;padding-left: 15px;padding-right: 15px;"> 
+        </div>
+    </form>
+    
+</body>
+</html>
